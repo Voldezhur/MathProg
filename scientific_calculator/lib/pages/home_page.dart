@@ -1,6 +1,7 @@
 import 'package:scientific_calculator/components/function_button.dart';
+import 'package:scientific_calculator/components/memory_button.dart';
 import 'package:scientific_calculator/components/number_button.dart';
-import 'package:scientific_calculator/globals/calculator_functions.dart';
+import 'package:scientific_calculator/globals/lists.dart';
 import 'package:scientific_calculator/models/equation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:eval_ex/expression.dart';
@@ -58,11 +59,17 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
+            physics: const ScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(top: 8),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 228, 212, 255),
+                  ),
+                  width: MediaQuery.of(context).size.width,
                   child: Text(
                     equation,
                     style: TextStyle(
@@ -71,27 +78,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     IconButton(
-                //       onPressed: () {
-                //         _removeFromEquation();
-                //       },
-                //       icon: const Icon(Icons.square_outlined),
-                //     ),
-                //     IconButton(
-                //       onPressed: () {
-                //         _displayResult();
-                //       },
-                //       icon: const Icon(Icons.square_rounded),
-                //     ),
-                //     IconButton(
-                //       onPressed: _clearEquation,
-                //       icon: const Icon(Icons.delete_forever),
-                //     ),
-                //   ],
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,6 +130,21 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                     ),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 10,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: utilityFunctions.length,
+                        itemBuilder: (context, index) {
+                          return FunctionButton(
+                            itemIndex: index,
+                            addToEquation: _addToEquation,
+                            functionList: utilityFunctions,
+                          );
+                        },
+                      ),
+                    ),
                     Column(
                       children: [
                         IconButton(
@@ -161,6 +162,18 @@ class _HomePageState extends State<HomePage> {
                         IconButton(
                           onPressed: _clearEquation,
                           icon: const Icon(Icons.delete_forever),
+                        ),
+                        MemoryButton(
+                          index: 1,
+                          addToEquation: _addToEquation,
+                        ),
+                        MemoryButton(
+                          index: 2,
+                          addToEquation: _addToEquation,
+                        ),
+                        MemoryButton(
+                          index: 3,
+                          addToEquation: _addToEquation,
                         ),
                       ],
                     ),

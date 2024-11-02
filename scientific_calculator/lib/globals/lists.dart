@@ -3,12 +3,8 @@
 
 import 'package:scientific_calculator/models/equation_item.dart';
 
-const logString = 'LOG(';
-
 final List<EquationItem> additionalFunctions = <EquationItem>[
-  EquationItem(logString, 'logn'),
-  EquationItem('(', '('),
-  EquationItem(')', ')'),
+  EquationItem('LOG(', 'logn'),
 ];
 
 final List<EquationItem> mainFunctions = <EquationItem>[
@@ -18,3 +14,10 @@ final List<EquationItem> mainFunctions = <EquationItem>[
   EquationItem('/', '/'),
   EquationItem('^', '^'),
 ];
+
+final List<EquationItem> utilityFunctions = <EquationItem>[
+  EquationItem('(', '('),
+  EquationItem(')', ')'),
+];
+
+final List memory = [0, 0, 0];
