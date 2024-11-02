@@ -3,7 +3,7 @@
 
 import 'package:scientific_calculator/models/calculator_function.dart';
 
-const logString = '1LOG(a)';
+const logString = 'LOG(';
 
 final List<CalculatorFunction> calculatorFunctions = <CalculatorFunction>[
   CalculatorFunction('+', '+'),
@@ -12,4 +12,6 @@ final List<CalculatorFunction> calculatorFunctions = <CalculatorFunction>[
   CalculatorFunction('/', '/'),
   CalculatorFunction('^', '^'),
   CalculatorFunction(logString, 'logn'),
+  CalculatorFunction('(', '('),
+  CalculatorFunction(')', ')'),
 ];
