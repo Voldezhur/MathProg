@@ -24,11 +24,11 @@ class _FunctionButtonState extends State<FunctionButton> {
         ),
       ),
       onPressed: () {
-        widget.addToEquation(calculatorFunctions[widget.itemIndex]);
+        widget.addToEquation(equationItems[widget.itemIndex]);
       },
       child: Text(
-        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-        calculatorFunctions[widget.itemIndex].label,
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        equationItems[widget.itemIndex].label,
       ),
     );
   }

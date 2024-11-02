@@ -51,10 +51,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    final double itemHeight = size.height / 4;
+    final double itemWidth = size.width / 4;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Научный калькулятор'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
@@ -92,9 +94,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 2,
+                      width: MediaQuery.sizeOf(context).width / 8,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: equationItems.length,
+                        itemBuilder: (context, index) {
+                          return FunctionButton(
+                            itemIndex: index,
+                            addToEquation: _addToEquation,
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 4,
                       child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -106,20 +123,6 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return NumberButton(
                             number: numbers[index],
-                            addToEquation: _addToEquation,
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 4,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: calculatorFunctions.length,
-                        itemBuilder: (context, index) {
-                          return FunctionButton(
-                            itemIndex: index,
                             addToEquation: _addToEquation,
                           );
                         },

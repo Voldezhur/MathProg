@@ -24,10 +24,11 @@ class _NumberButtonState extends State<NumberButton> {
         ),
       ),
       onPressed: () {
-        widget.addToEquation(EquationItem(widget.number.toString()));
+        widget.addToEquation(
+            EquationItem(widget.number.toString(), widget.number.toString()));
       },
       child: Text(
-        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         widget.number.toString(),
       ),
     );
