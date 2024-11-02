@@ -13,18 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Color equationTextColor = Colors.black;
   String equation = '';
 
   final List numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
 
   void _addToEquation(EquationItem element) {
     setState(() {
+      equationTextColor = Colors.black;
       equation += element.string;
     });
   }
 
   void _removeFromEquation() {
     setState(() {
+      equationTextColor = Colors.black;
       equation = equation.substring(0, equation.length - 1);
     });
   }
@@ -36,7 +39,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _displayResult() {
-    setState(() {});
+    setState(() {
+      Expression exp = Expression(equation);
+      try {
+        equation = exp.eval().toString();
+      } catch (e) {
+        equationTextColor = Colors.red;
+      }
+    });
   }
 
   @override
@@ -54,7 +64,10 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Text(
                   equation,
-                  style: const TextStyle(fontSize: 26),
+                  style: TextStyle(
+                    fontSize: 26,
+                    color: equationTextColor,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
