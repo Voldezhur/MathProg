@@ -28,7 +28,7 @@ class _NumberButtonState extends State<NumberButton> {
             EquationItem(widget.number.toString(), widget.number.toString()));
       },
       child: Text(
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         widget.number.toString(),
       ),
     );

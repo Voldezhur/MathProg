@@ -28,7 +28,9 @@ class _HomePageState extends State<HomePage> {
   void _removeFromEquation() {
     setState(() {
       equationTextColor = Colors.black;
-      equation = equation.substring(0, equation.length - 1);
+      if (equation.isNotEmpty) {
+        equation = equation.substring(0, equation.length - 1);
+      }
     });
   }
 
@@ -51,11 +53,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
-    final double itemHeight = size.height / 4;
-    final double itemWidth = size.width / 4;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -64,54 +61,58 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  equation,
-                  style: TextStyle(
-                    fontSize: 26,
-                    color: equationTextColor,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  child: Text(
+                    equation,
+                    style: TextStyle(
+                      fontSize: 26,
+                      color: equationTextColor,
+                    ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _removeFromEquation();
-                      },
-                      icon: const Icon(Icons.square_outlined),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        _displayResult();
-                      },
-                      icon: const Icon(Icons.square_rounded),
-                    ),
-                    IconButton(
-                      onPressed: _clearEquation,
-                      icon: const Icon(Icons.delete_forever),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     IconButton(
+                //       onPressed: () {
+                //         _removeFromEquation();
+                //       },
+                //       icon: const Icon(Icons.square_outlined),
+                //     ),
+                //     IconButton(
+                //       onPressed: () {
+                //         _displayResult();
+                //       },
+                //       icon: const Icon(Icons.square_rounded),
+                //     ),
+                //     IconButton(
+                //       onPressed: _clearEquation,
+                //       icon: const Icon(Icons.delete_forever),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 8,
+                      width: MediaQuery.sizeOf(context).width / 10,
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: equationItems.length,
+                        itemCount: additionalFunctions.length,
                         itemBuilder: (context, index) {
                           return FunctionButton(
                             itemIndex: index,
                             addToEquation: _addToEquation,
+                            functionList: additionalFunctions,
                           );
                         },
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 4,
+                      width: MediaQuery.sizeOf(context).width / 4.5,
                       child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -127,6 +128,41 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                       ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 10,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: mainFunctions.length,
+                        itemBuilder: (context, index) {
+                          return FunctionButton(
+                            itemIndex: index,
+                            addToEquation: _addToEquation,
+                            functionList: mainFunctions,
+                          );
+                        },
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _removeFromEquation();
+                          },
+                          icon: const Icon(Icons.square_outlined),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            _displayResult();
+                          },
+                          icon: const Icon(Icons.square_rounded),
+                        ),
+                        IconButton(
+                          onPressed: _clearEquation,
+                          icon: const Icon(Icons.delete_forever),
+                        ),
+                      ],
                     ),
                   ],
                 ),
