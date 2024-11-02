@@ -26,6 +26,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _addStringToEquation(String element) {
+    setState(() {
+      equationTextColor = Colors.black;
+      equation += element;
+    });
+  }
+
   void _removeFromEquation() {
     setState(() {
       equationTextColor = Colors.black;
@@ -83,8 +90,12 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 10,
-                      child: ListView.builder(
+                      width: MediaQuery.sizeOf(context).width / 6,
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: additionalFunctions.length,
@@ -165,15 +176,18 @@ class _HomePageState extends State<HomePage> {
                         ),
                         MemoryButton(
                           index: 1,
-                          addToEquation: _addToEquation,
+                          addToEquation: _addStringToEquation,
+                          equation: equation,
                         ),
                         MemoryButton(
                           index: 2,
-                          addToEquation: _addToEquation,
+                          addToEquation: _addStringToEquation,
+                          equation: equation,
                         ),
                         MemoryButton(
                           index: 3,
-                          addToEquation: _addToEquation,
+                          addToEquation: _addStringToEquation,
+                          equation: equation,
                         ),
                       ],
                     ),

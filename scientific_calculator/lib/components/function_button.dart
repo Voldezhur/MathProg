@@ -20,12 +20,8 @@ class _FunctionButtonState extends State<FunctionButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
       ),
       onPressed: () {
         widget.addToEquation(widget.functionList[widget.itemIndex]);

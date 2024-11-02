@@ -4,7 +4,12 @@
 import 'package:scientific_calculator/models/equation_item.dart';
 
 final List<EquationItem> additionalFunctions = <EquationItem>[
-  EquationItem('LOG(', 'logn'),
+  EquationItem('%', '%'),
+  EquationItem('LOG(', 'ln'),
+  EquationItem('LOG10(', 'log10'),
+  EquationItem('SIN(', 'sin'),
+  EquationItem('COS(', 'cos'),
+  EquationItem('TAN(', 'tan'),
 ];
 
 final List<EquationItem> mainFunctions = <EquationItem>[
@@ -18,6 +23,8 @@ final List<EquationItem> mainFunctions = <EquationItem>[
 final List<EquationItem> utilityFunctions = <EquationItem>[
   EquationItem('(', '('),
   EquationItem(')', ')'),
+  EquationItem(',', ','),
+  EquationItem('.', '.'),
 ];
 
-final List memory = [0, 0, 0];
+final List memory = [null, null, null];
