@@ -6,15 +6,14 @@ import 'package:flutter/material.dart';
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key, required this.singleplayer});
 
-  final bool singleplayer;
+  final bool singleplayer; // Определяет режим игры
 
   @override
   State<GameScreen> createState() => _GameScreenState();
 }
 
 class _GameScreenState extends State<GameScreen> {
-  bool isPrepping = true;
-  int turn = 1;
+  bool isPrepping = true; // Флаг начала игры
 
   void _setField1(newField) {
     setState(() {

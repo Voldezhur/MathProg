@@ -15,6 +15,9 @@ class _TitleScreenState extends State<TitleScreen> {
     clearField1();
     clearField2();
 
+    // Переход на страницу игры
+    // GameScreen зависит от режима игры
+    // Сначала происходит подготовка поля (выставление кораблей)
     Navigator.push(
       context,
       MaterialPageRoute(

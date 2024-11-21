@@ -13,17 +13,18 @@ class GamePrep extends StatefulWidget {
 
   final Function setField1;
   final Function setField2;
-  final Function startGame;
+  final Function startGame; // Функция начала игры после выставления всех полей
 
-  final bool isSingleplayer;
+  final bool isSingleplayer; // Режим игры
 
   @override
   State<GamePrep> createState() => _GamePrepState();
 }
 
 class _GamePrepState extends State<GamePrep> {
-  var turn = 1;
+  var turn = 1; // Флаг хода, определяет порядок игры
 
+  // Передача хода и начало игры, после того, как все игроки закончили подготовку
   void _changeTurn() {
     setState(() {
       switch (turn) {
@@ -48,7 +49,7 @@ class _GamePrepState extends State<GamePrep> {
           'Игрок $turn',
           style: const TextStyle(fontSize: 24),
         ),
-        turn == 1
+        turn == 1 // В зависимости от хода настраивается первое или второе поле
             ? FieldSetting(
                 field: playingField1,
                 setField: widget.setField1,

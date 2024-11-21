@@ -3,27 +3,21 @@ import 'package:battleship/widgets/field_tile.dart';
 import 'package:flutter/material.dart';
 
 class Field extends StatefulWidget {
-  const Field({super.key, required this.size, required this.field});
+  const Field(
+      {super.key,
+      required this.size,
+      required this.field,
+      required this.tileOnTap});
 
-  final size;
-  final List<List<FieldItem>> field;
+  final int size; // Размерность поля
+  final List<List<FieldItem>> field; // Поле, которое выводится на экран
+  final Function tileOnTap; // Функция, вызываемая при нажатии на клетку
 
   @override
   State<Field> createState() => _FieldState();
 }
 
 class _FieldState extends State<Field> {
-  void _setTile(index) {
-    setState(() {
-      final size = widget.size;
-      final x = (index / size).floor();
-      final y = (index % size).toInt();
-
-      widget.field[x][y].isShip = true;
-      widget.field[x][y].tileColor = Colors.green;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,13 +30,16 @@ class _FieldState extends State<Field> {
             crossAxisCount: widget.size),
         itemBuilder: (BuildContext context, int index) {
           final size = widget.size;
+
+          // Индекс клетки в списке
+          final x = (index / size).floor();
+          final y = (index % size).toInt();
+
           return Padding(
             padding: const EdgeInsets.all(2.0),
             child: InkWell(
-              onTap: () => _setTile(index),
-              child: FieldTile(
-                  tile: widget.field[(index / size).floor()]
-                      [(index % size).toInt()]),
+              onTap: () => widget.tileOnTap(index, size),
+              child: FieldTile(tile: widget.field[x][y]),
             ),
           );
         },

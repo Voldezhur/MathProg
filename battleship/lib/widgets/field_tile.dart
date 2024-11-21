@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class FieldTile extends StatefulWidget {
   const FieldTile({super.key, required this.tile});
 
+  // Клетка, которую нужно отрисовать
+  // Берется из списков
   final FieldItem tile;
 
   @override
