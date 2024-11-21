@@ -15,10 +15,26 @@ class FieldTile extends StatefulWidget {
 class _FieldTileState extends State<FieldTile> {
   @override
   Widget build(BuildContext context) {
+    Color color = Colors.white; // Цвет зависит от флагов клетки
+    final tile = widget.tile;
+
+    if (tile.isShip) {
+      color = Colors.green;
+    }
+
+    if (tile.isBlownUp) {
+      color = Colors.red;
+    }
+
+    if (tile.isMiss) {
+      color = Colors.grey;
+    }
+
     return Container(
       decoration: BoxDecoration(
-          color: widget.tile.tileColor,
-          border: Border.all(color: Colors.brown)),
+        color: color,
+        border: Border.all(color: Colors.brown),
+      ),
     );
   }
 }

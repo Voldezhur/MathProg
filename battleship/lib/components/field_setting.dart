@@ -19,8 +19,7 @@ class _FieldSettingState extends State<FieldSetting> {
       final x = (index / size).floor();
       final y = (index % size).toInt();
 
-      widget.field[x][y].isShip = true;
-      widget.field[x][y].tileColor = Colors.green;
+      widget.field[x][y].isShip = widget.field[x][y].isShip ? false : true;
     });
   }
 
