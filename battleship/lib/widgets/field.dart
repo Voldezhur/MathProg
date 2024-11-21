@@ -13,6 +13,17 @@ class Field extends StatefulWidget {
 }
 
 class _FieldState extends State<Field> {
+  void _setTile(index) {
+    setState(() {
+      final size = widget.size;
+      final x = (index / size).floor();
+      final y = (index % size).toInt();
+
+      widget.field[x][y].isShip = true;
+      widget.field[x][y].tileColor = Colors.green;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,9 +36,15 @@ class _FieldState extends State<Field> {
             crossAxisCount: widget.size),
         itemBuilder: (BuildContext context, int index) {
           final size = widget.size;
-          return FieldTile(
-              tile: widget.field[(index / size).floor()]
-                  [(index % size).toInt()]);
+          return Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: InkWell(
+              onTap: () => _setTile(index),
+              child: FieldTile(
+                  tile: widget.field[(index / size).floor()]
+                      [(index % size).toInt()]),
+            ),
+          );
         },
       ),
     );

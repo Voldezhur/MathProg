@@ -13,13 +13,10 @@ class FieldTile extends StatefulWidget {
 class _FieldTileState extends State<FieldTile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Container(
-        decoration: BoxDecoration(
-            color: widget.tile.tileColor,
-            border: Border.all(color: Colors.brown)),
-      ),
+    return Container(
+      decoration: BoxDecoration(
+          color: widget.tile.tileColor,
+          border: Border.all(color: Colors.brown)),
     );
   }
 }

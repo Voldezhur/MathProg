@@ -1,6 +1,6 @@
 import 'package:battleship/components/game_prep.dart';
 import 'package:battleship/components/gaming.dart';
-import 'package:battleship/globals/lists.dart';
+import 'package:battleship/globals/playing_fields.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {

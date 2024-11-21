@@ -1,5 +1,5 @@
 import 'package:battleship/components/field_setting.dart';
-import 'package:battleship/globals/lists.dart';
+import 'package:battleship/globals/playing_fields.dart';
 import 'package:flutter/material.dart';
 
 class GamePrep extends StatefulWidget {

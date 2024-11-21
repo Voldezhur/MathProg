@@ -1,3 +1,4 @@
+import 'package:battleship/globals/playing_fields.dart';
 import 'package:battleship/pages/game_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,10 @@ class TitleScreen extends StatefulWidget {
 
 class _TitleScreenState extends State<TitleScreen> {
   void _startGame(singleplayer) {
+    // Очистка игровых полей (берется из playing_fields.dart)
+    clearField1();
+    clearField2();
+
     Navigator.push(
       context,
       MaterialPageRoute(
