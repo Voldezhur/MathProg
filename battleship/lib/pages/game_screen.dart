@@ -1,4 +1,4 @@
-import 'package:battleship/components/field_setting.dart';
+import 'package:battleship/components/game_prep.dart';
 import 'package:battleship/components/gaming.dart';
 import 'package:battleship/globals/lists.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  bool settingField = true;
+  bool isPrepping = true;
   int turn = 1;
 
   void _setField1(newField) {
@@ -28,29 +28,24 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
+  void _startGame() {
+    setState(() {
+      isPrepping = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.singleplayer ? 'Одиночная игра' : 'На двоих'),
       ),
-      body: settingField
-          ? Column(
-              children: [
-                turn == 1
-                    ? FieldSetting(
-                        field: playingField1,
-                        setField: _setField1,
-                      )
-                    : FieldSetting(
-                        field: playingField2,
-                        setField: _setField2,
-                      ),
-                ElevatedButton(
-                  onPressed: () => {turn = turn == 1 ? 2 : 1},
-                  child: const Text('Закончить настраивать поле'),
-                ),
-              ],
+      body: isPrepping
+          ? GamePrep(
+              setField1: _setField1,
+              setField2: _setField2,
+              startGame: _startGame,
+              isSingleplayer: widget.singleplayer,
             )
           : Gaming(),
     );
