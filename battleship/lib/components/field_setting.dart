@@ -28,29 +28,54 @@ class _FieldSettingState extends State<FieldSetting> {
       final x = (index / size).floor();
       final y = (index % size).toInt();
 
-      // widget.field[x][y].isShip = widget.field[x][y].isShip ? false : true;
-
+      // Данные о корабле
       final shipSize = widget.shipSize;
       final isRotated = widget.isRotated;
 
       // Постановка корабля
-      switch (isRotated) {
-        // Горизонтально
-        case false:
-          if (x <= size - shipSize) {
-            for (int i = 0; i < shipSize; i++) {
-              widget.field[x + i][y].isShip = true;
+      try {
+        switch (isRotated) {
+          // Горизонтально
+          case false:
+            if (x <= size - shipSize) {
+              // Проверка, что корабль не пересекается с другим
+              for (int i = 0; i < shipSize; i++) {
+                if (widget.field[x + i][y].isShip) {
+                  throw ('Корабль пересекает другой корабль');
+                }
+              }
+              // Расположение корабля
+              for (int i = 0; i < shipSize; i++) {
+                widget.field[x + i][y].isShip = true;
+              }
+            } else {
+              throw ('Корабль пересекает границу поля');
             }
-          }
-          break;
-        // Вертикально
-        default:
-          if (y <= size - shipSize) {
-            for (int i = 0; i < shipSize; i++) {
-              widget.field[x][y + i].isShip = true;
+            break;
+          // Вертикально
+          default:
+            if (y <= size - shipSize) {
+              // Проверка, что корабль не пересекается с другим
+              for (int i = 0; i < shipSize; i++) {
+                if (widget.field[x][y + i].isShip) {
+                  throw ('Корабль пересекает другой корабль');
+                }
+              }
+              // Расположение корабля
+              for (int i = 0; i < shipSize; i++) {
+                widget.field[x][y + i].isShip = true;
+              }
+            } else {
+              throw ('Корабль пересекает границу поля');
             }
-          }
-          break;
+            break;
+        }
+      } catch (e) {
+        var snackBar = SnackBar(
+          content: Text(e.toString()),
+          duration: const Duration(seconds: 2),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
   }
