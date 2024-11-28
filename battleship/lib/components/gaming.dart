@@ -20,18 +20,24 @@ class _GamingState extends State<Gaming> {
   }
 
   // Нажатие на клетку
-  void _tapTile(index, size) {
+  void _tapTile(index, size) async {
+    bool hit = false;
+
     setState(() {
       // Координаты клетки
       final x = (index / size).floor();
       final y = (index % size).toInt();
 
+      // Флаг попадания
+
+      // Ход игрока
       switch (turn) {
         // Ход первого игрока
         case 1:
           if (playingField2[x][y].isShip) {
             playingField2Hidden[x][y].isShip = true;
             playingField2Hidden[x][y].isBlownUp = true;
+            hit = true;
           } else {
             playingField2Hidden[x][y].isMiss = true;
           }
@@ -41,12 +47,18 @@ class _GamingState extends State<Gaming> {
           if (playingField1[x][y].isShip) {
             playingField1Hidden[x][y].isShip = true;
             playingField1Hidden[x][y].isBlownUp = true;
+            hit = true;
           } else {
             playingField1Hidden[x][y].isMiss = true;
           }
           break;
       }
     });
+
+    if (!hit) {
+        await Future.delayed(const Duration(seconds: 1));
+        _changeTurn();
+      }
   }
 
   @override

@@ -8,6 +8,7 @@ class FieldSetting extends StatefulWidget {
     required this.field,
     required this.shipSize,
     required this.isRotated,
+    required this.addShip,
   });
 
   final List<List<FieldItem>> field; // Для вывода поля
@@ -15,6 +16,9 @@ class FieldSetting extends StatefulWidget {
   // Параметры для постановки корабля
   final int shipSize;
   final bool isRotated;
+
+  // Функция для добавления корабля в бюджет
+  final Function addShip;
 
   @override
   State<FieldSetting> createState() => _FieldSettingState();
@@ -45,6 +49,7 @@ class _FieldSettingState extends State<FieldSetting> {
                 }
               }
               // Расположение корабля
+              widget.addShip(shipSize);
               for (int i = 0; i < shipSize; i++) {
                 widget.field[x + i][y].isShip = true;
               }
@@ -62,6 +67,7 @@ class _FieldSettingState extends State<FieldSetting> {
                 }
               }
               // Расположение корабля
+              widget.addShip(shipSize);
               for (int i = 0; i < shipSize; i++) {
                 widget.field[x][y + i].isShip = true;
               }

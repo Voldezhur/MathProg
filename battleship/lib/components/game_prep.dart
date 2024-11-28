@@ -24,6 +24,19 @@ class _GamePrepState extends State<GamePrep> {
   var shipSize = 1;
   var isRotated = true;
 
+  // Количество кораблей
+  int shipBudget = 0;
+  int maxShipBudget = 9;
+
+  void _addShip(int size) {
+    setState(() {
+      if (shipBudget + size > maxShipBudget) {
+        throw('Перебор по бюджету');
+      }
+      shipBudget += size;  
+    });
+  }
+
   // Выбор размера корабля
   void _setShipSize(int size) {
     setState(() {
@@ -40,6 +53,7 @@ class _GamePrepState extends State<GamePrep> {
             widget.startGame();
           }
           turn++;
+          shipBudget = 0;
           break;
         default:
           widget.startGame();
@@ -51,14 +65,8 @@ class _GamePrepState extends State<GamePrep> {
   // Очистка активного поля
   void _clearActiveField(number) {
     setState(() {
-      switch (number) {
-        case 1:
-          clearField1();
-          break;
-        case 2:
-          clearField2();
-          break;
-      }
+      number == 1 ? clearField1() : clearField2();
+      shipBudget = 0;
     });
   }
 
@@ -101,16 +109,19 @@ class _GamePrepState extends State<GamePrep> {
             Text("Поворот: $isRotated"),
           ],
         ),
+        Text('Бюджет для флота: $shipBudget / $maxShipBudget'),
         turn == 1 // В зависимости от хода настраивается первое или второе поле
             ? FieldSetting(
                 field: playingField1,
                 shipSize: shipSize,
                 isRotated: isRotated,
+                addShip: _addShip,
               )
             : FieldSetting(
                 field: playingField2,
                 shipSize: shipSize,
                 isRotated: isRotated,
+                addShip: _addShip,
               ),
         ElevatedButton(
           onPressed: () => _clearActiveField(turn),
