@@ -34,27 +34,30 @@ class _GamingState extends State<Gaming> {
       switch (turn) {
         // Ход первого игрока
         case 1:
+          // Если попали
           if (playingField2[x][y].isShip) {
             playingField2Hidden[x][y].isShip = true;
             playingField2Hidden[x][y].isBlownUp = true;
             hit = true;
-          } else {
+          } else { // Не попали
             playingField2Hidden[x][y].isMiss = true;
           }
           break;
         // Ход второго игрока
         case 2:
+          // Если попали
           if (playingField1[x][y].isShip) {
             playingField1Hidden[x][y].isShip = true;
             playingField1Hidden[x][y].isBlownUp = true;
             hit = true;
-          } else {
+          } else { // Не попали
             playingField1Hidden[x][y].isMiss = true;
           }
           break;
       }
     });
 
+    // Если промах - автоматически передать ход следующему игроку
     if (!hit) {
         await Future.delayed(const Duration(seconds: 1));
         _changeTurn();

@@ -45,10 +45,10 @@ class _TitleScreenState extends State<TitleScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () => _startGame(true),
-                  child: const Text('Одиночная игра'),
-                ),
+                // ElevatedButton(
+                //   onPressed: () => _startGame(true),
+                //   child: const Text('Одиночная игра'),
+                // ),
                 ElevatedButton(
                   onPressed: () => _startGame(false),
                   child: const Text('На двоих'),
