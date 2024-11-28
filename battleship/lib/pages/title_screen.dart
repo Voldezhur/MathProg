@@ -14,6 +14,8 @@ class _TitleScreenState extends State<TitleScreen> {
     // Очистка игровых полей (берется из playing_fields.dart)
     clearField1();
     clearField2();
+    clearField1Hidden();
+    clearField2Hidden();
 
     // Переход на страницу игры
     // GameScreen зависит от режима игры
