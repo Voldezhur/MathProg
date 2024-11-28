@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:knighthood/models/tile_object.dart';
 import 'package:knighthood/widgets/tile.dart';
 
-class Field extends StatefulWidget {
-  const Field({super.key, required this.size, required this.map});
+class Map extends StatefulWidget {
+  const Map({super.key, required this.size, required this.map});
 
   final int size; // Размерность карты
   final List<List<TileObject>> map; // Отрисовываемая карта
 
   @override
-  State<Field> createState() => _FieldState();
+  State<Map> createState() => _MapState();
 }
 
-class _FieldState extends State<Field> {
+class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,10 +30,7 @@ class _FieldState extends State<Field> {
           final x = (index / size).floor();
           final y = (index % size).toInt();
 
-          return Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Tile(tile: widget.map[x][y]),
-          );
+          return Tile(tile: widget.map[x][y]);
         },
       ),
     );

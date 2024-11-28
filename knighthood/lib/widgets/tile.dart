@@ -13,6 +13,32 @@ class Tile extends StatefulWidget {
 class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // Цвет клетки зависит от флагов объекта из списка
+    Color tileColor = Colors.white;
+
+    // Выбор цвета
+
+    // Свободная клетка
+    if (widget.tile.isFree) {
+      tileColor = Colors.white;
+    }
+    // Игрок
+    if (widget.tile.isPlayer) {
+      tileColor = Colors.blue;
+    }
+    // Стена
+    if (widget.tile.isWall) {
+      tileColor = Colors.black;
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: tileColor,
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+    );
   }
 }

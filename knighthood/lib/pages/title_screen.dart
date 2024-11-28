@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knighthood/pages/game_page.dart';
 
 class TitleScreen extends StatefulWidget {
   const TitleScreen({super.key});
@@ -8,6 +9,13 @@ class TitleScreen extends StatefulWidget {
 }
 
 class _TitleScreenState extends State<TitleScreen> {
+  void _startGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +31,7 @@ class _TitleScreenState extends State<TitleScreen> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => {_startGame()},
               child: const Text('Начать игру'),
             )
           ],
