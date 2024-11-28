@@ -30,19 +30,19 @@ class _GamingState extends State<Gaming> {
         // Ход первого игрока
         case 1:
           if (playingField2[x][y].isShip) {
-            playingField2Hidden[x][y].isShip;
-            playingField2Hidden[x][y].isBlownUp;
+            playingField2Hidden[x][y].isShip = true;
+            playingField2Hidden[x][y].isBlownUp = true;
           } else {
-            playingField2Hidden[x][y].isMiss;
+            playingField2Hidden[x][y].isMiss = true;
           }
           break;
         // Ход второго игрока
         case 2:
           if (playingField1[x][y].isShip) {
-            playingField1Hidden[x][y].isShip;
-            playingField1Hidden[x][y].isBlownUp;
+            playingField1Hidden[x][y].isShip = true;
+            playingField1Hidden[x][y].isBlownUp = true;
           } else {
-            playingField1Hidden[x][y].isMiss;
+            playingField1Hidden[x][y].isMiss = true;
           }
           break;
       }
