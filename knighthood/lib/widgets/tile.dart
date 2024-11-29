@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knighthood/globals/settings.dart';
 import 'package:knighthood/models/tile_object.dart';
 
 class Tile extends StatefulWidget {
@@ -22,13 +23,18 @@ class _TileState extends State<Tile> {
     if (widget.tile.isFree) {
       tileColor = Colors.white;
     }
-    // Игрок
-    if (widget.tile.isPlayer) {
-      tileColor = Colors.blue;
-    }
     // Стена
     if (widget.tile.isWall) {
       tileColor = Colors.black;
+    }
+    // Дверь
+    if (widget.tile.isDoor) {
+      tileColor = Colors.brown;
+    }
+    // Игрок
+    if (widget.tile.isPlayer) {
+      // Цвет берется из настроек
+      tileColor = playerColor;
     }
 
     return Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knighthood/globals/maps/level_1_maps.dart';
-import 'package:knighthood/pages/game_page.dart';
+import 'package:knighthood/pages/game_screen.dart';
+import 'package:knighthood/pages/settings_screen.dart';
 
 class TitleScreen extends StatefulWidget {
   const TitleScreen({super.key});
@@ -14,10 +15,17 @@ class _TitleScreenState extends State<TitleScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => GamePage(
+          builder: (context) => GameScreen(
                 map: map1,
                 generateMap: generateMap1,
               )),
+    );
+  }
+
+  void _goToSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsScreen()),
     );
   }
 
@@ -38,7 +46,11 @@ class _TitleScreenState extends State<TitleScreen> {
             ElevatedButton(
               onPressed: () => {_startGame()},
               child: const Text('Начать игру'),
-            )
+            ),
+            ElevatedButton(
+              onPressed: () => {_goToSettings()},
+              child: const Text('Настройки'),
+            ),
           ],
         ),
       ),

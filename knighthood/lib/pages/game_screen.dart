@@ -3,14 +3,14 @@ import 'package:knighthood/globals/lists.dart';
 import 'package:knighthood/models/tile_object.dart';
 import 'package:knighthood/widgets/map.dart';
 
-class GamePage extends StatefulWidget {
-  const GamePage({super.key, required this.map, required this.generateMap});
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key, required this.map, required this.generateMap});
 
   final List<List<TileObject>> map;
   final Function generateMap;
 
   @override
-  State<GamePage> createState() => _GamePageState();
+  State<GameScreen> createState() => _GameScreenState();
 }
 
 /*
@@ -20,7 +20,7 @@ Such that when they move they color the new position with their color and the ol
 
 */
 
-class _GamePageState extends State<GamePage> {
+class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
@@ -34,7 +34,9 @@ class _GamePageState extends State<GamePage> {
         // Игрок
         if (i.name == 'player') {
           map[i.posY][i.posX].isPlayer = true;
-          map[i.prevPosY][i.prevPosX].isPlayer = false;
+          if (i.prevPosY != -1 && i.prevPosX != -1) {
+            map[i.prevPosY][i.prevPosX].isPlayer = false;
+          }
         }
       }
     });
