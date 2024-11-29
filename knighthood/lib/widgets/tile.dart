@@ -18,7 +18,6 @@ class _TileState extends State<Tile> {
     Color tileColor = Colors.white;
 
     // Выбор цвета
-
     // Свободная клетка
     if (widget.tile.isFree) {
       tileColor = Colors.white;
