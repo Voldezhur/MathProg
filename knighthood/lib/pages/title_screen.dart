@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knighthood/globals/maps/level_1_maps.dart';
 import 'package:knighthood/pages/game_page.dart';
 
 class TitleScreen extends StatefulWidget {
@@ -12,7 +13,11 @@ class _TitleScreenState extends State<TitleScreen> {
   void _startGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage()),
+      MaterialPageRoute(
+          builder: (context) => GamePage(
+                map: map1,
+                generateMap: generateMap1,
+              )),
     );
   }
 
