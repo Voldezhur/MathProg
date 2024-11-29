@@ -90,6 +90,10 @@ class _GameScreenState extends State<GameScreen> {
     _updateMap(widget.map);
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Игра'),
+      ),
       body: Column(
         children: [
           Map(size: 10, map: widget.map),
@@ -113,6 +117,11 @@ class _GameScreenState extends State<GameScreen> {
                 icon: const Icon(Icons.arrow_forward),
               ),
             ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          ElevatedButton(
+            onPressed: () => {Navigator.pop(context)},
+            child: const Text('В главное меню'),
           ),
         ],
       ),
