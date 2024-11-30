@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:knighthood/globals/maps/level_1_maps.dart';
+import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/pages/game_screen.dart';
 import 'package:knighthood/pages/settings_screen.dart';
 
@@ -16,8 +16,7 @@ class _TitleScreenState extends State<TitleScreen> {
       context,
       MaterialPageRoute(
           builder: (context) => GameScreen(
-                map: map1,
-                generateMap: generateMap1,
+                map: currentMap,
               )),
     );
   }
@@ -25,7 +24,7 @@ class _TitleScreenState extends State<TitleScreen> {
   void _goToSettings() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SettingsScreen()),
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
     );
   }
 

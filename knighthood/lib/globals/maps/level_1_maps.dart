@@ -11,7 +11,6 @@ MapObject map2 = MapObject('Лес1', emptyMap, generateMap2);
 // Вторая координата - X
 void generateMap1() {
   map1.westMap = map2;
-
   map1.layout = emptyMap;
 
   map1.layout[0][2].isFree = false;
@@ -63,5 +62,6 @@ void generateMap1() {
 }
 
 void generateMap2() {
+  map2.eastMap = map1;
   map2.layout = emptyMap;
 }

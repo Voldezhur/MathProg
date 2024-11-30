@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/globals/lists.dart';
 import 'package:knighthood/globals/settings.dart';
 import 'package:knighthood/models/map.dart';
@@ -6,27 +7,19 @@ import 'package:knighthood/pages/title_screen.dart';
 import 'package:knighthood/widgets/map.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key, required this.map, required this.generateMap});
+  const GameScreen({super.key, required this.map});
 
   final MapObject map;
-  final Function generateMap;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
 }
 
-/*
-
-Make objects move on the board by storing their position, as well as their previous position
-Such that when they move they color the new position with their color and the old position gets colored white
-
-*/
-
 class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    widget.generateMap();
+    widget.map.generateMap();
   }
 
   // Функция для обновления всей карты
@@ -83,17 +76,28 @@ class _GameScreenState extends State<GameScreen> {
       if (newX < 0) {
         if (widget.map.westMap != null) {
           newX = widget.map.westMap!.layout.length - 1;
+          currentMap = widget.map.westMap!;
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => GameScreen(
-                map: widget.map.westMap!,
-                generateMap: widget.map.westMap!.generateMap,
+                map: currentMap,
               ),
             ),
-            // MaterialPageRoute(
-            //   builder: (context) => SettingsScreen(),
-            // ),
+          );
+        }
+      }
+      if (newX > widget.map.layout.length - 1) {
+        if (widget.map.eastMap != null) {
+          newX = 0;
+          currentMap = widget.map.eastMap!;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GameScreen(
+                map: currentMap,
+              ),
+            ),
           );
         }
       }
