@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/pages/game_screen.dart';
 import 'package:knighthood/pages/settings_screen.dart';
 
@@ -14,10 +13,7 @@ class _TitleScreenState extends State<TitleScreen> {
   void _startGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => GameScreen(
-                map: currentMap,
-              )),
+      MaterialPageRoute(builder: (context) => GameScreen()),
     );
   }
 

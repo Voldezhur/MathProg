@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/globals/lists.dart';
 import 'package:knighthood/globals/settings.dart';
-import 'package:knighthood/models/map.dart';
 import 'package:knighthood/pages/title_screen.dart';
+import 'package:knighthood/widgets/debug_window.dart';
 import 'package:knighthood/widgets/map.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key, required this.map});
-
-  final MapObject map;
+  const GameScreen({super.key});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -19,7 +17,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    widget.map.generateMap();
+    currentMap.generateMap();
   }
 
   // Функция для обновления всей карты
@@ -29,14 +27,29 @@ class _GameScreenState extends State<GameScreen> {
         // Игрок
         if (i.name == 'player') {
           // Перемещение игрока на новые координаты
-          widget.map.layout[i.posY][i.posX].isPlayer = true;
+          currentMap.layout[i.posY][i.posX].isPlayer = true;
           // Очистка предыдущей клетки
           if (i.prevPosY != -1 && i.prevPosX != -1) {
-            widget.map.layout[i.prevPosY][i.prevPosX].isPlayer = false;
+            currentMap.layout[i.prevPosY][i.prevPosX].isPlayer = false;
           }
         }
       }
     });
+  }
+
+  void _travel(String direction) {
+    switch (direction) {
+      case 'north':
+        break;
+      case 'west':
+        break;
+      case 'south':
+        break;
+      case 'east':
+        break;
+      default:
+        throw ('Invalid travel direction "$direction"');
+    }
   }
 
   // Функция для перемещения определенного энтити в определенном направлении
@@ -74,41 +87,27 @@ class _GameScreenState extends State<GameScreen> {
     // Запад
     if (name == 'player') {
       if (newX < 0) {
-        if (widget.map.westMap != null) {
-          newX = widget.map.westMap!.layout.length - 1;
-          currentMap = widget.map.westMap!;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => GameScreen(
-                map: currentMap,
-              ),
-            ),
-          );
+        if (currentMap.westMap != null) {
+          newX = currentMap.westMap!.layout.length - 1;
+          currentMap = currentMap.westMap!;
+          currentMap.generateMap();
         }
       }
-      if (newX > widget.map.layout.length - 1) {
-        if (widget.map.eastMap != null) {
+      if (newX > currentMap.layout.length - 1) {
+        if (currentMap.eastMap != null) {
           newX = 0;
-          currentMap = widget.map.eastMap!;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => GameScreen(
-                map: currentMap,
-              ),
-            ),
-          );
+          currentMap = currentMap.eastMap!;
+          currentMap.generateMap();
         }
       }
     }
 
     // Если перешли не в стену, то меняем координаты и обновляем карту
     if (newX >= 0 &&
-        newX < widget.map.layout.length &&
+        newX < currentMap.layout.length &&
         newY >= 0 &&
-        newY < widget.map.layout.length) {
-      if (widget.map.layout[newY][newX].isFree) {
+        newY < currentMap.layout.length) {
+      if (currentMap.layout[newY][newX].isFree) {
         // Предыдущие координаты равны настоящим
         entities[entityIndex].prevPosY = entities[entityIndex].posY;
         entities[entityIndex].prevPosX = entities[entityIndex].posX;
@@ -130,11 +129,11 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(widget.map.name),
+        title: Text(currentMap.name),
       ),
       body: Column(
         children: [
-          Map(size: 10, map: widget.map.layout),
+          Map(size: 10, map: currentMap.layout),
           IconButton(
             onPressed: () => _moveEntity('player', 'up'),
             icon: const Icon(Icons.arrow_upward),
@@ -166,21 +165,7 @@ class _GameScreenState extends State<GameScreen> {
             },
             child: const Text('В главное меню'),
           ),
-          debugMode
-              ? Row(
-                  children: [
-                    Text(
-                      'X: ${entities.firstWhere((element) => element.name == 'player').posX}',
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    Text(
-                      'Y: ${entities.firstWhere((element) => element.name == 'player').posY}',
-                    ),
-                  ],
-                )
-              : Container(),
+          debugMode ? const DebugWindow() : Container(),
         ],
       ),
     );

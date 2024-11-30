@@ -1,5 +1,16 @@
 import 'package:knighthood/globals/consts.dart';
-import 'package:knighthood/models/map.dart';
+import 'package:knighthood/models/map_object.dart';
+
+// Функции карт
+void clearMapLayout(MapObject map) {
+  for (var i in map.layout) {
+    for (var ii in i) {
+      ii.isFree = true;
+      ii.isWall = false;
+      ii.isDoor = false;
+    }
+  }
+}
 
 // Карты
 MapObject map1 = MapObject('Дом', emptyMap, generateMap1);
@@ -11,7 +22,7 @@ MapObject map2 = MapObject('Лес1', emptyMap, generateMap2);
 // Вторая координата - X
 void generateMap1() {
   map1.westMap = map2;
-  map1.layout = emptyMap;
+  clearMapLayout(map1);
 
   map1.layout[0][2].isFree = false;
   map1.layout[0][2].isWall = true;
@@ -63,5 +74,5 @@ void generateMap1() {
 
 void generateMap2() {
   map2.eastMap = map1;
-  map2.layout = emptyMap;
+  clearMapLayout(map2);
 }
