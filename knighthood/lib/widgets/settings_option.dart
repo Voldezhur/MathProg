@@ -13,12 +13,15 @@ class SettingsOption extends StatefulWidget {
 class _SettingsOptionState extends State<SettingsOption> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(widget.title),
-        widget.setting,
-      ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(widget.title),
+          widget.setting,
+        ],
+      ),
     );
   }
 }

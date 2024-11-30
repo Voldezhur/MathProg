@@ -4,14 +4,17 @@ class MapObject {
   String name;
   List<List<TileObject>> layout;
 
-  late MapObject northMap;
-  late MapObject westMap;
-  late MapObject southMap;
-  late MapObject eastMap;
+  Function generateMap;
+
+  MapObject? northMap;
+  MapObject? westMap;
+  MapObject? southMap;
+  MapObject? eastMap;
 
   MapObject(
     this.name,
-    this.layout, {
+    this.layout,
+    this.generateMap, {
     northMap,
     westMap,
     southMap,

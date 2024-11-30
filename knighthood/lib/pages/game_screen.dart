@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:knighthood/globals/lists.dart';
+import 'package:knighthood/globals/settings.dart';
 import 'package:knighthood/models/map.dart';
+import 'package:knighthood/pages/title_screen.dart';
 import 'package:knighthood/widgets/map.dart';
 
 class GameScreen extends StatefulWidget {
@@ -33,12 +35,6 @@ class _GameScreenState extends State<GameScreen> {
       for (var i in entities) {
         // Игрок
         if (i.name == 'player') {
-          // Проверка на переход за карту
-          // if (i.posX < 0) {
-          //   if (widget.map.westMap) {
-
-          //   }
-          // }
           // Перемещение игрока на новые координаты
           widget.map.layout[i.posY][i.posX].isPlayer = true;
           // Очистка предыдущей клетки
@@ -77,20 +73,50 @@ class _GameScreenState extends State<GameScreen> {
         throw ('Invalid movement direction "$direction"');
     }
 
-    // Обновление координат, если не идем в стену
+    // Обновление координат
     var newY = entities[entityIndex].posY + tempY;
     var newX = entities[entityIndex].posX + tempX;
 
-    if (widget.map.layout[newY][newX].isFree) {
-      entities[entityIndex].prevPosY = entities[entityIndex].posY;
-      entities[entityIndex].prevPosX = entities[entityIndex].posX;
-
-      entities[entityIndex].posY = newY;
-      entities[entityIndex].posX = newX;
+    // Проверка на переход за карту, если энтити - игрок
+    // Запад
+    if (name == 'player') {
+      if (newX < 0) {
+        if (widget.map.westMap != null) {
+          newX = widget.map.westMap!.layout.length - 1;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GameScreen(
+                map: widget.map.westMap!,
+                generateMap: widget.map.westMap!.generateMap,
+              ),
+            ),
+            // MaterialPageRoute(
+            //   builder: (context) => SettingsScreen(),
+            // ),
+          );
+        }
+      }
     }
 
-    // Обновление карты
-    _updateMap();
+    // Если перешли не в стену, то меняем координаты и обновляем карту
+    if (newX >= 0 &&
+        newX < widget.map.layout.length &&
+        newY >= 0 &&
+        newY < widget.map.layout.length) {
+      if (widget.map.layout[newY][newX].isFree) {
+        // Предыдущие координаты равны настоящим
+        entities[entityIndex].prevPosY = entities[entityIndex].posY;
+        entities[entityIndex].prevPosX = entities[entityIndex].posX;
+
+        // Настоящие координаты равны новым
+        entities[entityIndex].posY = newY;
+        entities[entityIndex].posX = newX;
+
+        // Обновление карты
+        _updateMap();
+      }
+    }
   }
 
   @override
@@ -128,9 +154,29 @@ class _GameScreenState extends State<GameScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           ElevatedButton(
-            onPressed: () => {Navigator.pop(context)},
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TitleScreen()),
+              )
+            },
             child: const Text('В главное меню'),
           ),
+          debugMode
+              ? Row(
+                  children: [
+                    Text(
+                      'X: ${entities.firstWhere((element) => element.name == 'player').posX}',
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    Text(
+                      'Y: ${entities.firstWhere((element) => element.name == 'player').posY}',
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );

@@ -36,7 +36,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
-          )
+          ),
+          SettingsOption(
+            title: 'Режим дебага',
+            setting: Switch(
+              value: debugMode,
+              onChanged: (bool value) {
+                setState(() {
+                  debugMode = value;
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
