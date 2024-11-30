@@ -37,20 +37,20 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  void _travel(String direction) {
-    switch (direction) {
-      case 'north':
-        break;
-      case 'west':
-        break;
-      case 'south':
-        break;
-      case 'east':
-        break;
-      default:
-        throw ('Invalid travel direction "$direction"');
-    }
-  }
+  // void _travel(String direction) {
+  //   switch (direction) {
+  //     case 'north':
+  //       break;
+  //     case 'west':
+  //       break;
+  //     case 'south':
+  //       break;
+  //     case 'east':
+  //       break;
+  //     default:
+  //       throw ('Invalid travel direction "$direction"');
+  //   }
+  // }
 
   // Функция для перемещения определенного энтити в определенном направлении
   void _moveEntity(String name, String direction) {

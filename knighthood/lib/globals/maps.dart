@@ -20,66 +20,73 @@ void clearMapLayout(MapObject map) {
 // Обязательно в начале функции прописать clearMapLayout для новой карты
 // В функции через индексы задаются флаги для клеток
 // Доступные виды флагов можно посмотреть в models/tile_object.dart
-MapObject map1 = MapObject('Дом', emptyMap, generateMap1);
-MapObject map2 = MapObject('Лес1', emptyMap, generateMap2);
+MapObject mapHome = MapObject('Дом', emptyMap, generateMap1);
+MapObject mapForest1 = MapObject('Лес1', emptyMap, generateMap2);
+MapObject mapForest2 = MapObject('Лес2', emptyMap, generateMap3);
 
 // Функции генерации карт
 // При работе с картами:
 // Первая координата - Y
 // Вторая координата - X
 void generateMap1() {
-  map1.westMap = map2;
-  clearMapLayout(map1);
+  mapHome.westMap = mapForest1;
+  mapHome.eastMap = mapForest2;
+  clearMapLayout(mapHome);
 
-  map1.layout[0][2].isFree = false;
-  map1.layout[0][2].isWall = true;
+  mapHome.layout[0][2].isFree = false;
+  mapHome.layout[0][2].isWall = true;
 
-  map1.layout[1][2].isFree = false;
-  map1.layout[1][2].isWall = true;
+  mapHome.layout[1][2].isFree = false;
+  mapHome.layout[1][2].isWall = true;
 
-  map1.layout[2][2].isFree = false;
-  map1.layout[2][2].isWall = true;
+  mapHome.layout[2][2].isFree = false;
+  mapHome.layout[2][2].isWall = true;
 
-  map1.layout[3][2].isFree = false;
-  map1.layout[3][2].isWall = true;
+  mapHome.layout[3][2].isFree = false;
+  mapHome.layout[3][2].isWall = true;
 
-  map1.layout[4][2].isFree = false;
-  map1.layout[4][2].isWall = true;
+  mapHome.layout[4][2].isFree = false;
+  mapHome.layout[4][2].isWall = true;
 
-  map1.layout[0][3].isFree = false;
-  map1.layout[0][3].isWall = true;
+  mapHome.layout[0][3].isFree = false;
+  mapHome.layout[0][3].isWall = true;
 
-  map1.layout[0][4].isFree = false;
-  map1.layout[0][4].isWall = true;
+  mapHome.layout[0][4].isFree = false;
+  mapHome.layout[0][4].isWall = true;
 
-  map1.layout[0][5].isFree = false;
-  map1.layout[0][5].isWall = true;
+  mapHome.layout[0][5].isFree = false;
+  mapHome.layout[0][5].isWall = true;
 
-  map1.layout[0][6].isFree = false;
-  map1.layout[0][6].isWall = true;
+  mapHome.layout[0][6].isFree = false;
+  mapHome.layout[0][6].isWall = true;
 
-  map1.layout[1][6].isFree = false;
-  map1.layout[1][6].isWall = true;
+  mapHome.layout[1][6].isFree = false;
+  mapHome.layout[1][6].isWall = true;
 
-  map1.layout[2][6].isFree = false;
-  map1.layout[2][6].isWall = true;
+  mapHome.layout[2][6].isFree = false;
+  mapHome.layout[2][6].isWall = true;
 
-  map1.layout[3][6].isFree = false;
-  map1.layout[3][6].isWall = true;
+  mapHome.layout[3][6].isFree = false;
+  mapHome.layout[3][6].isWall = true;
 
-  map1.layout[4][6].isFree = false;
-  map1.layout[4][6].isWall = true;
+  mapHome.layout[4][6].isFree = false;
+  mapHome.layout[4][6].isWall = true;
 
-  map1.layout[4][5].isFree = false;
-  map1.layout[4][5].isWall = true;
+  mapHome.layout[4][5].isFree = false;
+  mapHome.layout[4][5].isWall = true;
 
-  map1.layout[4][3].isFree = false;
-  map1.layout[4][3].isWall = true;
+  mapHome.layout[4][3].isFree = false;
+  mapHome.layout[4][3].isWall = true;
 
-  map1.layout[4][4].isDoor = true;
+  mapHome.layout[4][4].isDoor = true;
 }
 
 void generateMap2() {
-  map2.eastMap = map1;
-  clearMapLayout(map2);
+  mapForest1.eastMap = mapHome;
+  clearMapLayout(mapForest1);
+}
+
+void generateMap3() {
+  mapForest2.westMap = mapHome;
+  clearMapLayout(mapForest1);
 }
