@@ -1,5 +1,5 @@
 class TileObject {
-  bool isFree;
+  bool isFree; // true - можно пройти насквозь; false - нельзя
   bool isPlayer;
   bool isWall;
   bool isDoor;

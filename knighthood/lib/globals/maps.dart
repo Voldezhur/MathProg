@@ -13,6 +13,13 @@ void clearMapLayout(MapObject map) {
 }
 
 // Карты
+// Чтобы создать новую карту:
+// 1. Создать объект класса MapObject, задать имя
+// 2. Прописать функцию для генерации:
+//
+// Обязательно в начале функции прописать clearMapLayout для новой карты
+// В функции через индексы задаются флаги для клеток
+// Доступные виды флагов можно посмотреть в models/tile_object.dart
 MapObject map1 = MapObject('Дом', emptyMap, generateMap1);
 MapObject map2 = MapObject('Лес1', emptyMap, generateMap2);
 
