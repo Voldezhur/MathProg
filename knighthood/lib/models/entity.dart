@@ -6,5 +6,8 @@ class Entity {
   int prevPosX;
   int prevPosY;
 
-  Entity(this.name, this.posX, this.posY, this.prevPosX, this.prevPosY);
+  bool isEnemy;
+
+  Entity(this.name, this.posX, this.posY, this.prevPosX, this.prevPosY,
+      this.isEnemy);
 }

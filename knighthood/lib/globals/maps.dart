@@ -90,4 +90,6 @@ void generateMap2() {
 void generateMap3() {
   mapForest2.westMap = mapHome;
   clearMapLayout(mapForest1);
+
+  mapForest2.entities.add(boar);
 }

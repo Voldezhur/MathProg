@@ -30,7 +30,11 @@ class _TileState extends State<Tile> {
     if (widget.tile.isDoor) {
       tileColor = Colors.brown;
     }
-    // Игрок
+    // Кабан
+    if (widget.tile.isBoar) {
+      tileColor = Colors.red;
+    }
+    // Игрок - отрисовывается последним
     if (widget.tile.isPlayer) {
       // Цвет берется из настроек
       tileColor = playerColor;

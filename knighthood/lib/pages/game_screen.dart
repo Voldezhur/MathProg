@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/globals/settings.dart';
+import 'package:knighthood/models/entity.dart';
 import 'package:knighthood/models/map_object.dart';
 import 'package:knighthood/pages/title_screen.dart';
 import 'package:knighthood/widgets/debug_window.dart';
@@ -34,30 +35,28 @@ class _GameScreenState extends State<GameScreen> {
             currentMap.layout[i.prevPosY][i.prevPosX].isPlayer = false;
           }
         }
+        // Кабан
+        if (i.name == 'boar') {
+          // Перемещение энтити на новые координаты
+          currentMap.layout[i.posY][i.posX].isBoar = true;
+          // Очистка предыдущей клетки
+          if (i.prevPosY != -1 && i.prevPosX != -1) {
+            currentMap.layout[i.prevPosY][i.prevPosX].isBoar = false;
+          }
+        }
       }
     });
   }
 
-  // void _travel(String direction) {
-  //   switch (direction) {
-  //     case 'north':
-  //       break;
-  //     case 'west':
-  //       break;
-  //     case 'south':
-  //       break;
-  //     case 'east':
-  //       break;
-  //     default:
-  //       throw ('Invalid travel direction "$direction"');
-  //   }
-  // }
+  // Функция для очистки энтити с карты
+  void _clearEntities() {
+    for (var i in currentMap.entities) {
+      currentMap.layout[i.posY][i.posX].isBoar = false;
+    }
+  }
 
   // Функция для перемещения определенного энтити в определенном направлении
-  void _moveEntity(String name, String direction) {
-    // Находим индекс нужного энтити по имени
-    var entityIndex = currentMap.entities.indexWhere((x) => x.name == name);
-
+  void _moveEntity(Entity entity, String direction) {
     // Изменяем координаты
     int tempY = 0;
     int tempX = 0;
@@ -81,11 +80,11 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     // Обновление координат
-    var newY = currentMap.entities[entityIndex].posY + tempY;
-    var newX = currentMap.entities[entityIndex].posX + tempX;
+    var newY = entity.posY + tempY;
+    var newX = entity.posX + tempX;
 
     // Проверка на переход за карту, если энтити - игрок
-    if (name == 'player') {
+    if (entity.name == 'player') {
       bool moved = false; // Флаг перемещения
       MapObject newMap = currentMap; // Новая карта
 
@@ -111,6 +110,9 @@ class _GameScreenState extends State<GameScreen> {
       }
       // Если совершилось перемещение
       if (moved) {
+        // Очистка энтити с экрана
+        _clearEntities();
+
         // Перемещение игрока на новую карту
         int playerIndex = currentMap.entities
             .indexWhere((element) => element.name == 'player');
@@ -130,14 +132,12 @@ class _GameScreenState extends State<GameScreen> {
         newY < currentMap.layout.length) {
       if (currentMap.layout[newY][newX].isFree) {
         // Предыдущие координаты равны настоящим
-        currentMap.entities[entityIndex].prevPosY =
-            currentMap.entities[entityIndex].posY;
-        currentMap.entities[entityIndex].prevPosX =
-            currentMap.entities[entityIndex].posX;
+        entity.prevPosY = entity.posY;
+        entity.prevPosX = entity.posX;
 
         // Настоящие координаты равны новым
-        currentMap.entities[entityIndex].posY = newY;
-        currentMap.entities[entityIndex].posX = newX;
+        entity.posY = newY;
+        entity.posX = newX;
 
         // Обновление карты
         _updateMap();
@@ -158,22 +158,34 @@ class _GameScreenState extends State<GameScreen> {
         children: [
           Map(size: 10, map: currentMap.layout),
           IconButton(
-            onPressed: () => _moveEntity('player', 'up'),
+            onPressed: () => _moveEntity(
+                currentMap.entities
+                    .firstWhere((element) => element.name == 'player'),
+                'up'),
             icon: const Icon(Icons.arrow_upward),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () => _moveEntity('player', 'left'),
+                onPressed: () => _moveEntity(
+                    currentMap.entities
+                        .firstWhere((element) => element.name == 'player'),
+                    'left'),
                 icon: const Icon(Icons.arrow_back),
               ),
               IconButton(
-                onPressed: () => _moveEntity('player', 'down'),
+                onPressed: () => _moveEntity(
+                    currentMap.entities
+                        .firstWhere((element) => element.name == 'player'),
+                    'down'),
                 icon: const Icon(Icons.arrow_downward),
               ),
               IconButton(
-                onPressed: () => _moveEntity('player', 'right'),
+                onPressed: () => _moveEntity(
+                    currentMap.entities
+                        .firstWhere((element) => element.name == 'player'),
+                    'right'),
                 icon: const Icon(Icons.arrow_forward),
               ),
             ],
