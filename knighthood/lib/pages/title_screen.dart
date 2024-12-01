@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knighthood/pages/game_screen.dart';
 import 'package:knighthood/pages/settings_screen.dart';
+import 'package:knighthood/pages/world_editor.dart';
 
 class TitleScreen extends StatefulWidget {
   const TitleScreen({super.key});
@@ -21,6 +22,13 @@ class _TitleScreenState extends State<TitleScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SettingsScreen()),
+    );
+  }
+
+  void _goToEditor() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const WorldEditor()),
     );
   }
 
@@ -45,6 +53,10 @@ class _TitleScreenState extends State<TitleScreen> {
             ElevatedButton(
               onPressed: () => {_goToSettings()},
               child: const Text('Настройки'),
+            ),
+            ElevatedButton(
+              onPressed: () => {_goToEditor()},
+              child: const Text('Редактор карт'),
             ),
           ],
         ),
