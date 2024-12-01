@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
-import 'package:knighthood/globals/lists.dart';
 import 'package:knighthood/globals/settings.dart';
+import 'package:knighthood/models/map_object.dart';
 import 'package:knighthood/pages/title_screen.dart';
 import 'package:knighthood/widgets/debug_window.dart';
 import 'package:knighthood/widgets/map.dart';
@@ -23,7 +24,7 @@ class _GameScreenState extends State<GameScreen> {
   // Функция для обновления всей карты
   void _updateMap() {
     setState(() {
-      for (var i in entities) {
+      for (var i in currentMap.entities) {
         // Игрок
         if (i.name == 'player') {
           // Перемещение игрока на новые координаты
@@ -55,7 +56,7 @@ class _GameScreenState extends State<GameScreen> {
   // Функция для перемещения определенного энтити в определенном направлении
   void _moveEntity(String name, String direction) {
     // Находим индекс нужного энтити по имени
-    var entityIndex = entities.indexWhere((x) => x.name == name);
+    var entityIndex = currentMap.entities.indexWhere((x) => x.name == name);
 
     // Изменяем координаты
     int tempY = 0;
@@ -80,25 +81,45 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     // Обновление координат
-    var newY = entities[entityIndex].posY + tempY;
-    var newX = entities[entityIndex].posX + tempX;
+    var newY = currentMap.entities[entityIndex].posY + tempY;
+    var newX = currentMap.entities[entityIndex].posX + tempX;
 
     // Проверка на переход за карту, если энтити - игрок
-    // Запад
     if (name == 'player') {
+      bool moved = false; // Флаг перемещения
+      MapObject newMap = currentMap; // Новая карта
+
+      // Запад
       if (newX < 0) {
         if (currentMap.westMap != null) {
+          // Перемещение на границу новой карты
           newX = currentMap.westMap!.layout.length - 1;
-          currentMap = currentMap.westMap!;
-          currentMap.generateMap();
+          // Выбор новой карты
+          newMap = currentMap.westMap!;
+          moved = true;
         }
       }
+      // Юг
       if (newX > currentMap.layout.length - 1) {
         if (currentMap.eastMap != null) {
+          // Перемещение на границу новой карты
           newX = 0;
-          currentMap = currentMap.eastMap!;
-          currentMap.generateMap();
+          // Выбор новой карты
+          newMap = currentMap.eastMap!;
+          moved = true; // Флаг перемещения
         }
+      }
+      // Если совершилось перемещение
+      if (moved) {
+        // Перемещение игрока на новую карту
+        int playerIndex = currentMap.entities
+            .indexWhere((element) => element.name == 'player');
+        currentMap.entities.removeAt(playerIndex);
+        currentMap = newMap;
+        currentMap.entities.add(player);
+
+        // Генерация карты
+        currentMap.generateMap();
       }
     }
 
@@ -109,12 +130,14 @@ class _GameScreenState extends State<GameScreen> {
         newY < currentMap.layout.length) {
       if (currentMap.layout[newY][newX].isFree) {
         // Предыдущие координаты равны настоящим
-        entities[entityIndex].prevPosY = entities[entityIndex].posY;
-        entities[entityIndex].prevPosX = entities[entityIndex].posX;
+        currentMap.entities[entityIndex].prevPosY =
+            currentMap.entities[entityIndex].posY;
+        currentMap.entities[entityIndex].prevPosX =
+            currentMap.entities[entityIndex].posX;
 
         // Настоящие координаты равны новым
-        entities[entityIndex].posY = newY;
-        entities[entityIndex].posX = newX;
+        currentMap.entities[entityIndex].posY = newY;
+        currentMap.entities[entityIndex].posX = newX;
 
         // Обновление карты
         _updateMap();

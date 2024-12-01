@@ -1,3 +1,4 @@
+import 'package:knighthood/models/entity.dart';
 import 'package:knighthood/models/tile_object.dart';
 
 class MapObject {
@@ -5,6 +6,7 @@ class MapObject {
   List<List<TileObject>> layout;
 
   Function generateMap;
+  List<Entity> entities;
 
   MapObject? northMap;
   MapObject? westMap;
@@ -14,7 +16,8 @@ class MapObject {
   MapObject(
     this.name,
     this.layout,
-    this.generateMap, {
+    this.generateMap,
+    this.entities, {
     northMap,
     westMap,
     southMap,

@@ -1,4 +1,5 @@
 import 'package:knighthood/globals/consts.dart';
+import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/models/map_object.dart';
 
 // Функции карт
@@ -20,9 +21,9 @@ void clearMapLayout(MapObject map) {
 // Обязательно в начале функции прописать clearMapLayout для новой карты
 // В функции через индексы задаются флаги для клеток
 // Доступные виды флагов можно посмотреть в models/tile_object.dart
-MapObject mapHome = MapObject('Дом', emptyMap, generateMap1);
-MapObject mapForest1 = MapObject('Лес1', emptyMap, generateMap2);
-MapObject mapForest2 = MapObject('Лес2', emptyMap, generateMap3);
+MapObject mapHome = MapObject('Дом', emptyMap, generateMap1, [player]);
+MapObject mapForest1 = MapObject('Лес1', emptyMap, generateMap2, []);
+MapObject mapForest2 = MapObject('Лес2', emptyMap, generateMap3, []);
 
 // Функции генерации карт
 // При работе с картами:
