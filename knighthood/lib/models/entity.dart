@@ -45,7 +45,7 @@ class Entity {
     int j = posX;
     cellDetails[i][j].F = 0;
     cellDetails[i][j].g = 0;
-    cellDetails[i][j].g = 0;
+    cellDetails[i][j].h = 0;
     cellDetails[i][j].parentI = i;
     cellDetails[i][j].parentJ = j;
 
@@ -106,7 +106,9 @@ class Entity {
             path = path.reversed.toList();
 
             print(path);
-          } else {
+            return;
+          } else if (closedList[newI][newJ] == false &&
+              currentMap.layout[newI][newJ].isFree) {
             // Подсчитываем F, g, h
             var newG = cellDetails[i][j].g + 1.0;
             var newH = manhattan(newI, newJ);
@@ -114,7 +116,7 @@ class Entity {
 
             // Если клетки нет в открытом списке или новое значение F меньше
             if (cellDetails[newI][newJ].F > newF ||
-                cellDetails[newI][newJ].F == 0) {
+                cellDetails[newI][newJ].F == double.infinity) {
               // Добавить ячейку к открытому списку
               openList.add([newF, newI, newJ]);
               // Обновить данные о клетке
