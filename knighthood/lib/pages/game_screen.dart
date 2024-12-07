@@ -150,6 +150,7 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _updateMap();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

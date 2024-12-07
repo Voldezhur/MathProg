@@ -29,6 +29,7 @@ MapObject mapForest2 = MapObject('Лес2', emptyMap, generateMap3, []);
 // При работе с картами:
 // Первая координата - Y
 // Вторая координата - X
+// Энтити добавляются только при первой генерации
 void generateMap1() {
   mapHome.westMap = mapForest1;
   mapHome.eastMap = mapForest2;
@@ -80,16 +81,24 @@ void generateMap1() {
   mapHome.layout[4][3].isWall = true;
 
   mapHome.layout[4][4].isDoor = true;
+
+  mapHome.isGenerated = true;
 }
 
 void generateMap2() {
   mapForest1.eastMap = mapHome;
   clearMapLayout(mapForest1);
+
+  mapForest1.isGenerated = true;
 }
 
 void generateMap3() {
   mapForest2.westMap = mapHome;
   clearMapLayout(mapForest1);
 
-  mapForest2.entities.add(boar);
+  if (!mapForest2.isGenerated) {
+    mapForest2.entities.add(boar);
+  }
+
+  mapForest2.isGenerated = true;
 }

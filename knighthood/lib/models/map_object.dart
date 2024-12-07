@@ -13,11 +13,14 @@ class MapObject {
   MapObject? southMap;
   MapObject? eastMap;
 
+  bool isGenerated;
+
   MapObject(
     this.name,
     this.layout,
     this.generateMap,
     this.entities, {
+    this.isGenerated = false,
     northMap,
     westMap,
     southMap,

@@ -53,8 +53,6 @@ class Entity {
     List openList = [];
     openList.add([0, i, j]); // Синтаксис как в туториале
 
-    bool foundDest = false; // Флаг нахождения цели
-
     // Главный цикл
     while (openList.isNotEmpty) {
       // Выбираем клетку с наименьшим значением F из открытого списка
@@ -108,8 +106,6 @@ class Entity {
             path = path.reversed.toList();
 
             print(path);
-
-            foundDest = true; // Обновление флага
           } else {
             // Подсчитываем F, g, h
             var newG = cellDetails[i][j].g + 1.0;
@@ -131,10 +127,6 @@ class Entity {
           }
         }
       }
-    }
-
-    if (!foundDest) {
-      print('Failed to find dest');
     }
   }
 }
