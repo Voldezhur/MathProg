@@ -37,6 +37,7 @@ class _GameScreenState extends State<GameScreen> {
         }
         // Кабан
         if (i.name == 'boar') {
+          i.aStar();
           // Перемещение энтити на новые координаты
           currentMap.layout[i.posY][i.posX].isBoar = true;
           // Очистка предыдущей клетки
@@ -139,16 +140,16 @@ class _GameScreenState extends State<GameScreen> {
         entity.posY = newY;
         entity.posX = newX;
 
-        // Обновление карты
-        _updateMap();
+        // Обновление карты, если игрок совершил движение
+        if (entity.name == 'player') {
+          _updateMap();
+        }
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateMap();
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

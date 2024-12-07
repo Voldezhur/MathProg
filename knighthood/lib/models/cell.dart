@@ -4,16 +4,16 @@ import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
 
 class Cell {
-  int parentY;
-  int parentX;
+  int parentI;
+  int parentJ;
 
-  int F;
-  int g;
-  int h;
+  double F;
+  double g;
+  double h;
 
   Cell(
-    this.parentY,
-    this.parentX, {
+    this.parentI,
+    this.parentJ, {
     this.F = 0,
     this.g = 0,
     this.h = 0,
@@ -34,6 +34,6 @@ bool isDestination(y, x) {
 }
 
 // Манхеттенское расстояние
-int manhattan(y, x) {
+num manhattan(y, x) {
   return (y - player.posY).abs() + (x - player.posX).abs();
 }
