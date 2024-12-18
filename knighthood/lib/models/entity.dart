@@ -16,6 +16,7 @@ class Entity {
       this.isEnemy);
 
   // Алгоритм поиска пути до цели A*
+  // https://www.geeksforgeeks.org/a-search-algorithm/
   void aStar() {
     // Проверка возможности добраться до точки назначения
     if (!isValid(posY, posX) || !isValid(player.posY, player.posX)) return;
@@ -56,7 +57,7 @@ class Entity {
     // Главный цикл
     while (openList.isNotEmpty) {
       // Выбираем клетку с наименьшим значением F из открытого списка
-      var p = openList.removeLast();
+      var p = openList.removeAt(0);
 
       // Помечаем клетку, как посещенную
       i = p[1];
@@ -116,7 +117,7 @@ class Entity {
 
             // Если клетки нет в открытом списке или новое значение F меньше
             if (cellDetails[newI][newJ].F > newF ||
-                cellDetails[newI][newJ].F == double.infinity) {
+                cellDetails[newI][newJ].F == 0) {
               // Добавить ячейку к открытому списку
               openList.add([newF, newI, newJ]);
               // Обновить данные о клетке
