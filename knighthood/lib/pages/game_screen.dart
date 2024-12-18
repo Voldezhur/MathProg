@@ -25,24 +25,24 @@ class _GameScreenState extends State<GameScreen> {
   // Функция для обновления всей карты
   void _updateMap() {
     setState(() {
-      for (var i in currentMap.entities) {
+      for (var entity in currentMap.entities) {
         // Игрок
-        if (i.name == 'player') {
+        if (entity.name == 'player') {
           // Перемещение игрока на новые координаты
-          currentMap.layout[i.posY][i.posX].isPlayer = true;
+          currentMap.layout[entity.posY][entity.posX].isPlayer = true;
           // Очистка предыдущей клетки
-          if (i.prevPosY != -1 && i.prevPosX != -1) {
-            currentMap.layout[i.prevPosY][i.prevPosX].isPlayer = false;
+          if (entity.prevPosY != -1 && entity.prevPosX != -1) {
+            currentMap.layout[entity.prevPosY][entity.prevPosX].isPlayer =
+                false;
           }
         }
         // Кабан
-        if (i.name == 'boar') {
-          i.aStar();
+        if (entity.name == 'boar') {
           // Перемещение энтити на новые координаты
-          currentMap.layout[i.posY][i.posX].isBoar = true;
+          currentMap.layout[entity.posY][entity.posX].isBoar = true;
           // Очистка предыдущей клетки
-          if (i.prevPosY != -1 && i.prevPosX != -1) {
-            currentMap.layout[i.prevPosY][i.prevPosX].isBoar = false;
+          if (entity.prevPosY != -1 && entity.prevPosX != -1) {
+            currentMap.layout[entity.prevPosY][entity.prevPosX].isBoar = false;
           }
         }
       }
@@ -143,6 +143,19 @@ class _GameScreenState extends State<GameScreen> {
         // Обновление карты, если игрок совершил движение
         if (entity.name == 'player') {
           _updateMap();
+        }
+      }
+    }
+
+    // Передвижение противников после того, как походил игрок
+    if (entity.name == 'player') {
+      for (var i in currentMap.entities) {
+        // Кабан
+        if (i.name == 'boar') {
+          // Получение ближайшего пути до игрока, алгоритм A*
+          var path = i.aStar();
+          // Перемещение на один шаг по пути
+          _moveEntity(i, path[0]);
         }
       }
     }

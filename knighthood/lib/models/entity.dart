@@ -17,12 +17,12 @@ class Entity {
 
   // Алгоритм поиска пути до цели A*
   // https://www.geeksforgeeks.org/a-search-algorithm/
-  void aStar() {
+  List<String> aStar() {
     // Проверка возможности добраться до точки назначения
-    if (!isValid(posY, posX) || !isValid(player.posY, player.posX)) return;
+    if (!isValid(posY, posX) || !isValid(player.posY, player.posX)) return [];
 
     // Проверка, что мы уже у цели
-    if (isDestination(posY, posX)) return;
+    if (isDestination(posY, posX)) return [];
 
     // Инициализация списка с информацией о клетках
     List<List<bool>> closedList = [];
@@ -107,7 +107,8 @@ class Entity {
             path = path.reversed.toList();
 
             print(path);
-            return;
+            print(convertToDirections(path));
+            return convertToDirections(path);
           } else if (closedList[newI][newJ] == false &&
               currentMap.layout[newI][newJ].isFree) {
             // Подсчитываем F, g, h
@@ -131,5 +132,32 @@ class Entity {
         }
       }
     }
+
+    return [];
+  }
+
+  // Преобразование пути в список направлений для энтити
+  List<String> convertToDirections(path) {
+    List<String> directions = [];
+    var previousMove = (-1, -1);
+
+    for (var i in path) {
+      if (previousMove == (-1, -1)) {
+        previousMove = i;
+      }
+      if (i.$1 > previousMove.$1) {
+        directions.add('down');
+      } else if (i.$1 < previousMove.$1) {
+        directions.add('up');
+      } else if (i.$2 > previousMove.$2) {
+        directions.add('right');
+      } else if (i.$2 < previousMove.$2) {
+        directions.add('left');
+      }
+
+      previousMove = i;
+    }
+
+    return directions;
   }
 }
