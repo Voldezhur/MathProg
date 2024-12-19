@@ -1,4 +1,3 @@
-import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/models/cell.dart';
 
@@ -12,8 +11,14 @@ class Entity {
 
   bool isEnemy;
 
-  Entity(this.name, this.posX, this.posY, this.prevPosX, this.prevPosY,
-      this.isEnemy);
+  Entity({
+    this.name = 'placeholder',
+    this.posX = 0,
+    this.posY = 0,
+    this.prevPosX = -1,
+    this.prevPosY = -1,
+    this.isEnemy = false,
+  });
 
   // Алгоритм поиска пути до цели A*
   // https://www.geeksforgeeks.org/a-search-algorithm/
@@ -91,8 +96,7 @@ class Entity {
             int col = player.posX;
 
             // Проходим по пути из цели до отправной точки по родительским клеткам
-            while (!(cellDetails[row][col].parentI == row &&
-                cellDetails[row][col].parentJ == col)) {
+            while (!(cellDetails[row][col].parentI == row && cellDetails[row][col].parentJ == col)) {
               path.add((row, col));
               var tempRow = cellDetails[row][col].parentI;
               var tempCol = cellDetails[row][col].parentJ;
@@ -109,16 +113,14 @@ class Entity {
             print(path);
             print(convertToDirections(path));
             return convertToDirections(path);
-          } else if (closedList[newI][newJ] == false &&
-              currentMap.layout[newI][newJ].isFree) {
+          } else if (closedList[newI][newJ] == false && currentMap.layout[newI][newJ].isFree) {
             // Подсчитываем F, g, h
             var newG = cellDetails[i][j].g + 1.0;
             var newH = manhattan(newI, newJ);
             var newF = newG + newH;
 
             // Если клетки нет в открытом списке или новое значение F меньше
-            if (cellDetails[newI][newJ].F > newF ||
-                cellDetails[newI][newJ].F == 0) {
+            if (cellDetails[newI][newJ].F > newF || cellDetails[newI][newJ].F == 0) {
               // Добавить ячейку к открытому списку
               openList.add([newF, newI, newJ]);
               // Обновить данные о клетке

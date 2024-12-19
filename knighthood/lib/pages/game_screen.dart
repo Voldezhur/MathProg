@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
 import 'package:knighthood/globals/settings.dart';
 import 'package:knighthood/models/entity.dart';
@@ -32,8 +31,7 @@ class _GameScreenState extends State<GameScreen> {
           currentMap.layout[entity.posY][entity.posX].isPlayer = true;
           // Очистка предыдущей клетки
           if (entity.prevPosY != -1 && entity.prevPosX != -1) {
-            currentMap.layout[entity.prevPosY][entity.prevPosX].isPlayer =
-                false;
+            currentMap.layout[entity.prevPosY][entity.prevPosX].isPlayer = false;
           }
         }
         // Кабан
@@ -115,8 +113,7 @@ class _GameScreenState extends State<GameScreen> {
         _clearEntities();
 
         // Перемещение игрока на новую карту
-        int playerIndex = currentMap.entities
-            .indexWhere((element) => element.name == 'player');
+        int playerIndex = currentMap.entities.indexWhere((element) => element.name == 'player');
         currentMap.entities.removeAt(playerIndex);
         currentMap = newMap;
         currentMap.entities.add(player);
@@ -127,10 +124,7 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     // Если перешли не в стену, то меняем координаты и обновляем карту
-    if (newX >= 0 &&
-        newX < currentMap.layout.length &&
-        newY >= 0 &&
-        newY < currentMap.layout.length) {
+    if (newX >= 0 && newX < currentMap.layout.length && newY >= 0 && newY < currentMap.layout.length) {
       if (currentMap.layout[newY][newX].isFree) {
         // Предыдущие координаты равны настоящим
         entity.prevPosY = entity.posY;
@@ -174,37 +168,25 @@ class _GameScreenState extends State<GameScreen> {
           Map(
             size: 10,
             map: currentMap.layout,
-            tileOnTap: () {},
+            tileOnTap: (x, y) {},
           ),
           IconButton(
-            onPressed: () => _moveEntity(
-                currentMap.entities
-                    .firstWhere((element) => element.name == 'player'),
-                'up'),
+            onPressed: () => _moveEntity(currentMap.entities.firstWhere((element) => element.name == 'player'), 'up'),
             icon: const Icon(Icons.arrow_upward),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () => _moveEntity(
-                    currentMap.entities
-                        .firstWhere((element) => element.name == 'player'),
-                    'left'),
+                onPressed: () => _moveEntity(currentMap.entities.firstWhere((element) => element.name == 'player'), 'left'),
                 icon: const Icon(Icons.arrow_back),
               ),
               IconButton(
-                onPressed: () => _moveEntity(
-                    currentMap.entities
-                        .firstWhere((element) => element.name == 'player'),
-                    'down'),
+                onPressed: () => _moveEntity(currentMap.entities.firstWhere((element) => element.name == 'player'), 'down'),
                 icon: const Icon(Icons.arrow_downward),
               ),
               IconButton(
-                onPressed: () => _moveEntity(
-                    currentMap.entities
-                        .firstWhere((element) => element.name == 'player'),
-                    'right'),
+                onPressed: () => _moveEntity(currentMap.entities.firstWhere((element) => element.name == 'player'), 'right'),
                 icon: const Icon(Icons.arrow_forward),
               ),
             ],

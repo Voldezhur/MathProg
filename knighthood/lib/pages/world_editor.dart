@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:knighthood/globals/consts.dart';
 import 'package:knighthood/globals/game_state.dart';
+import 'package:knighthood/models/entity.dart';
 import 'package:knighthood/models/tile_object.dart';
+import 'package:knighthood/pages/game_screen.dart';
 import 'package:knighthood/widgets/map.dart';
 import 'package:knighthood/widgets/tile.dart';
 
@@ -149,7 +151,25 @@ class _WorldEditorState extends State<WorldEditor> {
   void _setTile(y, x) {
     setState(() {
       customLayout[y][x] = selectedTile;
+
+      // Добавление энтити
+      if (selectedTile.isPlayer) {
+        player.posX = x;
+        player.posY = y;
+        customMap.entities.add(player);
+      }
+      if (selectedTile.isBoar) {
+        customMap.entities.add(Entity(name: 'boar', posX: x, posY: y));
+      }
     });
+  }
+
+  void _goToCustomMap() {
+    currentMap = customMap;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const GameScreen()),
+    );
   }
 
   @override
@@ -211,7 +231,11 @@ class _WorldEditorState extends State<WorldEditor> {
               ),
             ],
           ),
-          Text('Выбранная клетка: $selectedTileIndex')
+          Text('Выбранная клетка: $selectedTileIndex'),
+          ElevatedButton(
+            onPressed: _goToCustomMap,
+            child: const Text('Перейти на карту'),
+          ),
         ],
       ),
     );

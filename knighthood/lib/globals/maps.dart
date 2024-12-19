@@ -1,5 +1,6 @@
 import 'package:knighthood/globals/consts.dart';
-import 'package:knighthood/globals/entities.dart';
+import 'package:knighthood/globals/game_state.dart';
+import 'package:knighthood/models/entity.dart';
 import 'package:knighthood/models/map_object.dart';
 
 // Функции карт
@@ -97,7 +98,7 @@ void generateMap3() {
   clearMapLayout(mapForest1);
 
   if (!mapForest2.isGenerated) {
-    mapForest2.entities.add(boar);
+    mapForest2.entities.add(Entity(name: 'boar', isEnemy: true));
   }
 
   mapForest2.isGenerated = true;

@@ -1,3 +1,4 @@
+import 'package:knighthood/models/entity.dart';
 import 'package:knighthood/models/tile_object.dart';
 
 // Создание клеток
@@ -6,6 +7,9 @@ TileObject tilePlayer = TileObject(isPlayer: true);
 TileObject tileWall = TileObject(isFree: false, isWall: true);
 TileObject tileDoor = TileObject(isDoor: true);
 TileObject tileBoar = TileObject(isBoar: true);
+
+// Дефолтное расположение игрока
+Entity playerDefault = Entity(name: 'player', posX: 4, posY: 2);
 
 List<List<TileObject>> emptyMap = [
   [

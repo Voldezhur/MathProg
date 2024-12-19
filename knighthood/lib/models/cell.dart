@@ -1,6 +1,5 @@
 // Класс для алгоритма A*
 // https://www.geeksforgeeks.org/a-search-algorithm/
-import 'package:knighthood/globals/entities.dart';
 import 'package:knighthood/globals/game_state.dart';
 
 class Cell {
