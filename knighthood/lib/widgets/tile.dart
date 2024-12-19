@@ -3,9 +3,14 @@ import 'package:knighthood/globals/settings.dart';
 import 'package:knighthood/models/tile_object.dart';
 
 class Tile extends StatefulWidget {
-  const Tile({super.key, required this.tile});
+  const Tile({
+    super.key,
+    required this.tile,
+    required this.tileOnTap,
+  });
 
   final TileObject tile;
+  final Function tileOnTap;
 
   @override
   State<Tile> createState() => _TileState();
@@ -40,12 +45,17 @@ class _TileState extends State<Tile> {
       tileColor = playerColor;
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        color: tileColor,
-        border: Border.all(
-          color: Colors.black,
-          width: 1,
+    return GestureDetector(
+      onTap: () {
+        widget.tileOnTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: tileColor,
+          border: Border.all(
+            color: Colors.black,
+            width: 1,
+          ),
         ),
       ),
     );

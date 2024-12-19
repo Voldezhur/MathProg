@@ -171,7 +171,11 @@ class _GameScreenState extends State<GameScreen> {
       ),
       body: Column(
         children: [
-          Map(size: 10, map: currentMap.layout),
+          Map(
+            size: 10,
+            map: currentMap.layout,
+            tileOnTap: () {},
+          ),
           IconButton(
             onPressed: () => _moveEntity(
                 currentMap.entities

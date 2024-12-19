@@ -3,10 +3,15 @@ import 'package:knighthood/models/tile_object.dart';
 import 'package:knighthood/widgets/tile.dart';
 
 class Map extends StatefulWidget {
-  const Map({super.key, required this.size, required this.map});
+  const Map(
+      {super.key,
+      required this.size,
+      required this.map,
+      required this.tileOnTap});
 
   final int size; // Размерность карты
   final List<List<TileObject>> map; // Отрисовываемая карта
+  final Function tileOnTap;
 
   @override
   State<Map> createState() => _MapState();
@@ -30,7 +35,10 @@ class _MapState extends State<Map> {
           final x = (index / size).floor();
           final y = (index % size).toInt();
 
-          return Tile(tile: widget.map[x][y]);
+          return Tile(
+            tile: widget.map[x][y],
+            tileOnTap: widget.tileOnTap,
+          );
         },
       ),
     );
