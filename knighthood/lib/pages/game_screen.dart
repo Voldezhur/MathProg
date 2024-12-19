@@ -148,8 +148,30 @@ class _GameScreenState extends State<GameScreen> {
         if (i.name == 'boar') {
           // Получение ближайшего пути до игрока, алгоритм A*
           var path = i.aStar();
-          // Перемещение на один шаг по пути
-          _moveEntity(i, path[0]);
+          // Перемещение на один шаг по пути и проверка на переход в игрока
+          if (path.isNotEmpty) {
+            var direction = path[0];
+            var nextTile = [0, 0];
+
+            switch (direction) {
+              case 'up':
+                nextTile[1]--;
+                break;
+              case 'down':
+                nextTile[1]++;
+                break;
+              case 'left':
+                nextTile[0]--;
+                break;
+              case 'right':
+                nextTile[0]++;
+                break;
+            }
+
+            if (!(i.posX + nextTile[0] == player.posX && i.posY + nextTile[1] == player.posY)) {
+              _moveEntity(i, path[0]);
+            }
+          }
         }
       }
     }

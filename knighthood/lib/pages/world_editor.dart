@@ -153,13 +153,15 @@ class _WorldEditorState extends State<WorldEditor> {
       customLayout[y][x] = selectedTile;
 
       // Добавление энтити
+      // Игрок
       if (selectedTile.isPlayer) {
         player.posX = x;
         player.posY = y;
         customMap.entities.add(player);
       }
+      // Кабан
       if (selectedTile.isBoar) {
-        customMap.entities.add(Entity(name: 'boar', posX: x, posY: y));
+        customMap.entities.add(Entity(name: 'boar', posX: x, posY: y, isEnemy: true));
       }
     });
   }
