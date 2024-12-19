@@ -168,6 +168,7 @@ class _WorldEditorState extends State<WorldEditor> {
 
   void _goToCustomMap() {
     currentMap = customMap;
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const GameScreen()),
