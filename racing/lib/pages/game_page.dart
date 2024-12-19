@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:racing/consts/players.dart';
@@ -17,6 +18,7 @@ class _GamePageState extends State<GamePage> {
   Timer? timer; // Таймер, отвечающий за повороты
   List<Widget> racingPlayers = []; // Список виджетов для Stack
 
+  // Создание списка игроков
   @override
   void initState() {
     super.initState();
@@ -29,7 +31,7 @@ class _GamePageState extends State<GamePage> {
   void _startRace() {
     timer = Timer.periodic(const Duration(milliseconds: 10), (Timer t) {
       setState(() {
-        rotation += 1;
+        rotation += 3;
       });
     });
   }
@@ -71,6 +73,9 @@ class _GamePageState extends State<GamePage> {
               children: [
                 playerRacing(players[0]),
                 playerRacing(players[1]),
+                playerRacing(players[2]),
+                playerRacing(players[3]),
+                playerRacing(players[4]),
               ],
             ),
             Column(
@@ -93,11 +98,16 @@ class _GamePageState extends State<GamePage> {
 
   // Игрок на гоночном треке
   Widget playerRacing(Player player) {
+    var _random = new Random();
+    int next(int min, int max) => min + _random.nextInt(max - min);
+
+    int x = next(5, player.skill);
+
     return RotationTransition(
-      turns: AlwaysStoppedAnimation((rotation + player.skill) / 360),
+      turns: AlwaysStoppedAnimation((rotation + x) / 360),
       child: SizedBox(
         // width: MediaQuery.sizeOf(context).width * 0.2,
-        width: 100,
+        width: 200,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
